@@ -1,7 +1,7 @@
 {
-    "name": "template",
+    "name": "TestBot",
     "version": "1.0.0",
-    "description": "",
+    "description": "My test bot",
     "main": "main.js",
     "scripts": {
         "start": "node main.js"
