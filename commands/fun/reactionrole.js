@@ -6,8 +6,6 @@ const {
     reactionChannelName: channelName,
 } = require("../../config.json");
 
-let exists = false;
-
 module.exports = {
     name: "reactionrole",
     description: "Sets up a reaction role message.",
@@ -15,8 +13,6 @@ module.exports = {
     permissions: ["MANAGE_MESSAGES"],
     usage: "",
     async execute(message, args, Discord, client) {
-        if (exists) return message.channel.send("Command was already sent!");
-
         const channel = message.guild.channels.cache.find(
             (c) => c.name === channelName
         );

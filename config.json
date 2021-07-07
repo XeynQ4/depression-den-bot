@@ -9,11 +9,11 @@
     "disagreeEmoji": "❌",
     "mainRoleName": "member",
     "muteRoleName": "mute",
-    "serverId": "855474397820354570",
-    "memberCounterChannelId": "861955523309731841",
+    "memberCounterChannelNameStart": "Total Members:",
     "prefix": "!",
     "botChannel": "bot-commands",
     "musicChannel": "music",
+    "logChannelName": "logs",
     "commandsCooldown": {
         "image": 0,
         "play": 0,

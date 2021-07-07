@@ -16,11 +16,11 @@ module.exports = {
                     `***${command.name}***`,
                     `**Description:** ${command.description}\n**Aliases:** \`${
                         command.aliases ? command.aliases.join(", ") : "-"
-                    }\`\n**Usage:** ${
+                    }\`\n**Usage:** \`${
                         command.usage
                             ? `${prefix}${command.name} ${command.usage}`
                             : `${prefix}${command.name}`
-                    }\n**Cooldown:** ${command.cooldown || 0} second(s)`
+                    }\`\n**Cooldown:** ${command.cooldown || 0} second(s)`
                 )
             );
             embed.setDescription(
@@ -59,11 +59,11 @@ module.exports = {
             .setDescription(
                 `**Description:** ${command.description}\n**Aliases:** \`${
                     command.aliases ? command.aliases.join(", ") : "-"
-                }\`\n**Usage:** ${
+                }\`\n**Usage:** \`${
                     command.usage
                         ? `${prefix}${command.name} ${command.usage}`
                         : `${prefix}${command.name}`
-                }\n**Cooldown:** ${command.cooldown || 0} second(s)`
+                }\`\n**Cooldown:** ${command.cooldown || 0} second(s)`
             )
             .setTitle(command.name);
 

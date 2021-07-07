@@ -1,14 +1,28 @@
 const {
-    serverId,
-    memberCounterChannelId: channelId,
+    memberCounterChannelNameStart: channelNameStart,
+    logChannelName,
 } = require("../config.json");
 
 module.exports = async (client) => {
-    const guild = client.guilds.cache.get(serverId);
-    setInterval(() => {
-        const memberCount = guild.memberCount;
-        const channel = guild.channels.cache.get(channelId);
-        channel.setName(`Total Members: ${memberCount.toLocaleString()}`);
-        console.log("Updating member count.");
-    }, 300000);
+    client.guilds.cache.forEach((guild) => {
+        setInterval(() => {
+            const memberCount = guild.memberCount;
+            const channel = guild.channels.cache.find((c) =>
+                c.name.startsWith(channelNameStart)
+            );
+            channel.setName(`Total Members: ${memberCount.toLocaleString()}`);
+
+            const logChannel = guild.channels.cache.find(
+                (c) => c.name === logChannelName
+            );
+
+            if (!logChannel)
+                console.log(
+                    `In ${guild.name}, there is no channel ${logChannelName}`
+                );
+
+            logChannel.send("Updating member count.");
+            console.log("Updating member count.");
+        }, 300000);
+    });
 };
