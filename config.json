@@ -3,6 +3,8 @@
     "suggestionsChannelName": "suggestions",
     "maleEmoji": "👦",
     "femaleEmoji": "👩",
+    "maleRoleName": "Male",
+    "femaleRoleName": "Female",
     "agreeEmoji": "✅",
     "disagreeEmoji": "❌",
     "mainRoleName": "member",

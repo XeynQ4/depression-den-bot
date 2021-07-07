@@ -15,7 +15,8 @@ module.exports = {
                 (cmd) => cmd.aliases && cmd.aliases.includes(commandName)
             );
 
-        if (!command) return;
+        if (!command)
+            return message.channel.send("This command doesn't exist!");
 
         if (command.guildOnly && message.channel.type === "dm") {
             return message.reply("This command is only for servers!");
@@ -43,7 +44,7 @@ module.exports = {
                     "you can't use this command in this channel!"
                 );
         } else {
-            if (!(botChannel === message.channel.name))
+            if (botChannel !== message.channel.name)
                 return message.reply(
                     "you can't use this command in this channel!"
                 );

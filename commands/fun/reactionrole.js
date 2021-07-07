@@ -1,8 +1,12 @@
 const {
     maleEmoji,
     femaleEmoji,
+    maleRoleName,
+    femaleRoleName,
     reactionChannelName: channelName,
 } = require("../../config.json");
+
+let exists = false;
 
 module.exports = {
     name: "reactionrole",
@@ -11,6 +15,8 @@ module.exports = {
     permissions: ["MANAGE_MESSAGES"],
     usage: "",
     async execute(message, args, Discord, client) {
+        if (exists) return message.channel.send("Command was already sent!");
+
         const channel = message.guild.channels.cache.find(
             (c) => c.name === channelName
         );
@@ -19,18 +25,58 @@ module.exports = {
                 `${channelName} channel does not exist!`
             );
 
+        const maleRole = message.guild.roles.cache.find(
+            (role) => role.name === maleRoleName
+        );
+        const femaleRole = message.guild.roles.cache.find(
+            (role) => role.name === femaleRoleName
+        );
+
         let embed = new Discord.MessageEmbed()
             .setColor("#e42643")
             .setTitle("Choose your sex")
             .setDescription(`${maleEmoji} => Male\n${femaleEmoji} => Female`);
 
-        try {
-            let messageEmbed = await channel.send(embed);
-            messageEmbed.react(maleEmoji);
-            messageEmbed.react(femaleEmoji);
-            message.delete();
-        } catch (e) {
-            throw e;
-        }
+        const messageEmbed = await channel.send(embed);
+
+        messageEmbed.react(maleEmoji);
+        messageEmbed.react(femaleEmoji);
+        message.delete();
+        exists = true;
+
+        const collector = messageEmbed.createReactionCollector(
+            (reaction, user) =>
+                !user.bot &&
+                (reaction.emoji.name === maleEmoji ||
+                    reaction.emoji.name === femaleEmoji),
+            {
+                dispose: true,
+            }
+        );
+
+        collector.on("collect", async (reaction, user) => {
+            if (reaction.emoji.name === maleEmoji) {
+                await reaction.message.guild.members.cache
+                    .get(user.id)
+                    .roles.add(maleRole);
+            }
+            if (reaction.emoji.name === femaleEmoji) {
+                await reaction.message.guild.members.cache
+                    .get(user.id)
+                    .roles.add(femaleRole);
+            }
+        });
+        collector.on("remove", async (reaction, user) => {
+            if (reaction.emoji.name === maleEmoji) {
+                await reaction.message.guild.members.cache
+                    .get(user.id)
+                    .roles.remove(maleRole);
+            }
+            if (reaction.emoji.name === femaleEmoji) {
+                await reaction.message.guild.members.cache
+                    .get(user.id)
+                    .roles.remove(femaleRole);
+            }
+        });
     },
 };
