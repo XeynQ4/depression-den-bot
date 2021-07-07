@@ -4,7 +4,7 @@ module.exports = {
     name: "help",
     description: "List of all commands.",
     aliases: ["h"],
-    usage: "<command: name>",
+    usage: "<command: name, optional>",
     async execute(message, args, Discord, client) {
         let embed = new Discord.MessageEmbed().setColor("#4287f5");
         const { commands } = message.client;

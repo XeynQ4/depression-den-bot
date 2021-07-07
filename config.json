@@ -1,12 +1,17 @@
 {
     "reactionChannelName": "get-roles",
+    "suggestionsChannelName": "suggestions",
     "maleEmoji": "👦",
     "femaleEmoji": "👩",
+    "agreeEmoji": "✅",
+    "disagreeEmoji": "❌",
     "mainRoleName": "member",
     "muteRoleName": "mute",
     "serverId": "855474397820354570",
     "memberCounterChannelId": "861955523309731841",
     "prefix": "!",
+    "botChannel": "bot-commands",
+    "musicChannel": "music",
     "commandsCooldown": {
         "image": 0,
         "play": 0,

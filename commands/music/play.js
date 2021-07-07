@@ -4,6 +4,7 @@ const videoPlayer = require("../../functions/videoPlayer");
 
 const {
     commandsCooldown: { play: cooldown },
+    musicChannel,
 } = require("../../config.json");
 
 module.exports = {
@@ -13,6 +14,7 @@ module.exports = {
     guildOnly: true,
     aliases: ["p"],
     cooldown,
+    channels: [musicChannel],
     permissions: ["SPEAK"],
     usage: "<video: name || url>",
     async execute(message, args, Discord, client) {

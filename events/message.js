@@ -1,4 +1,5 @@
-const { prefix } = require("../config.json");
+const { prefix, botChannel } = require("../config.json");
+const cooldownSetup = require("../functions/cooldown_setup");
 
 module.exports = {
     name: "message",
@@ -32,6 +33,22 @@ module.exports = {
             }
         }
 
+        if (command.channels) {
+            if (
+                !command.channels.find(
+                    (channel) => channel === message.channel.name
+                )
+            )
+                return message.reply(
+                    "you can't use this command in this channel!"
+                );
+        } else {
+            if (!(botChannel === message.channel.name))
+                return message.reply(
+                    "you can't use this command in this channel!"
+                );
+        }
+
         if (command.args && !args.length) {
             let reply = `You didn't provide any arguments, ${message.author}!`;
             if (command.usage) {
@@ -42,28 +59,7 @@ module.exports = {
 
         const { cooldowns } = client;
 
-        if (!cooldowns.has(command.name)) {
-            cooldowns.set(command.name, new Discord.Collection());
-        }
-
-        const now = Date.now();
-        const timestamps = cooldowns.get(command.name);
-        const cooldownAmount = (command.cooldown || 0) * 1000;
-
-        if (timestamps.has(message.author.id)) {
-            const expirationTime =
-                timestamps.get(message.author.id) + cooldownAmount;
-            if (now < expirationTime) {
-                const timeLeft = (expirationTime - now) / 1000;
-                return message.reply(
-                    `You have to wait ${timeLeft.toFixed(
-                        1
-                    )} second(s) before using this command again!`
-                );
-            }
-        }
-        timestamps.set(message.author.id, now);
-        setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+        await cooldownSetup(cooldowns, command, message, Discord);
 
         try {
             await command.execute(message, args, Discord, client);
