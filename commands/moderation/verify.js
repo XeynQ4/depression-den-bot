@@ -25,16 +25,16 @@ module.exports = {
         if (
             message.member.roles.cache.find((r) => r.name === verifiedRoleName)
         ) {
-            const alreadyVerifiedMessage = await message.channel.send(
-                "You are already verified!"
+            const alreadyVerifiedMessage = await message.reply(
+                "you are already verified!"
             );
             setTimeout(() => alreadyVerifiedMessage.delete(), 10000);
             return;
         }
 
         message.member.roles.add(verifiedRole);
-        const verifiedMessage = await message.channel.send(
-            "Congrats! You are verified!"
+        const verifiedMessage = await message.reply(
+            "congrats! You are verified!"
         );
         setTimeout(() => verifiedMessage.delete(), 10000);
     },
