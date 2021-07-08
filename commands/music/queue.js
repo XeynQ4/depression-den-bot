@@ -1,6 +1,6 @@
 const {
     commandsCooldown: { queue: cooldown },
-    musicChannel,
+    musicChannelName,
 } = require("../../config.json");
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
     guildOnly: true,
     aliases: ["q"],
     cooldown,
-    channels: [musicChannel],
+    channels: [musicChannelName],
     permissions: ["SPEAK"],
     usage: "",
     async execute(message, args, Discord, client) {

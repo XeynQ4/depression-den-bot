@@ -1,7 +1,7 @@
 {
-    "name": "test-bot",
+    "name": "depression-den-bot",
     "version": "1.0.0",
-    "description": "My test bot.",
+    "description": "Bot for depression den discord server.",
     "main": "main.js",
     "scripts": {
         "start": "node main.js"

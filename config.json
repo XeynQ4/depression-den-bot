@@ -12,8 +12,11 @@
     "memberCounterChannelNameStart": "Total Members:",
     "prefix": "!",
     "botChannel": "bot-commands",
-    "musicChannel": "music",
+    "musicChannelName": "music",
     "logChannelName": "logs",
+    "welcomeChannelName": "welcome",
+    "verifyChannelName": "verify",
+    "verifiedRoleName": "member",
     "commandsCooldown": {
         "image": 0,
         "play": 0,

@@ -18,7 +18,7 @@ module.exports = async (client) => {
 
             if (!logChannel)
                 console.log(
-                    `In ${guild.name}, there is no channel ${logChannelName}`
+                    `In ${guild.name}, there is no channel ${logChannelName}.`
                 );
 
             logChannel.send("Updating member count.");

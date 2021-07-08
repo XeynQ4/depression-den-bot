@@ -1,6 +1,6 @@
 const {
     commandsCooldown: { pause: cooldown },
-    musicChannel,
+    musicChannelName,
 } = require("../../config.json");
 
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
     cooldown,
     permissions: ["SPEAK"],
     usage: "",
-    channels: [musicChannel],
+    channels: [musicChannelName],
     async execute(message, args, Discord, client) {
         const voiceChannel = message.member.voice.channel;
 
