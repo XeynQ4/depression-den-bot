@@ -1,4 +1,8 @@
-const { verifyChannelName, verifiedRoleName } = require("../../config.json");
+const {
+    verifyChannelName,
+    verifiedRoleName,
+    messageDuration,
+} = require("../../config.json");
 
 module.exports = {
     name: "verify",
@@ -28,7 +32,7 @@ module.exports = {
             const alreadyVerifiedMessage = await message.reply(
                 "you are already verified!"
             );
-            setTimeout(() => alreadyVerifiedMessage.delete(), 10000);
+            setTimeout(() => alreadyVerifiedMessage.delete(), messageDuration);
             return;
         }
 
@@ -36,6 +40,6 @@ module.exports = {
         const verifiedMessage = await message.reply(
             "congrats! You are verified!"
         );
-        setTimeout(() => verifiedMessage.delete(), 10000);
+        setTimeout(() => verifiedMessage.delete(), messageDuration);
     },
 };

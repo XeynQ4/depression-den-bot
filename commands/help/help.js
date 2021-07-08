@@ -1,15 +1,32 @@
-const { prefix } = require("../../config.json");
+const {
+    prefix,
+    botChannelName,
+    botHelpChannelName,
+    messageDuration,
+} = require("../../config.json");
 
 module.exports = {
     name: "help",
     description: "List of all commands.",
     aliases: ["h"],
-    usage: "<command: name, optional>",
+    usage: "<command: name (optional)>",
+    channels: [botChannelName, botHelpChannelName],
     async execute(message, args, Discord, client) {
         let embed = new Discord.MessageEmbed().setColor("#4287f5");
-        const { commands } = message.client;
+        const { commands } = client;
 
         if (!args.length) {
+            if (message.channel.name === botHelpChannelName) {
+                message.delete();
+                const reply = await message.reply(
+                    "you can't use this usage in this channel!"
+                );
+
+                return setTimeout(() => {
+                    reply.delete();
+                }, messageDuration);
+            }
+
             embed.setTitle("List of all commands");
             commands.forEach((command) =>
                 embed.addField(
@@ -52,7 +69,12 @@ module.exports = {
             commands.find((c) => c.aliases && c.aliases.includes(name));
 
         if (!command) {
-            return message.reply("that's not a valid command!");
+            const reply = await message.reply("that's not a valid command!");
+            if (message.channel.name === botHelpChannelName) {
+                message.delete();
+                return setTimeout(() => reply.delete(), messageDuration);
+            }
+            return;
         }
 
         embed
@@ -67,6 +89,11 @@ module.exports = {
             )
             .setTitle(command.name);
 
-        message.channel.send(embed);
+        const reply = await message.channel.send(embed);
+
+        if (message.channel.name === botHelpChannelName) {
+            message.delete();
+            return setTimeout(() => reply.delete(), messageDuration);
+        }
     },
 };

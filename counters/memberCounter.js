@@ -1,6 +1,7 @@
 const {
     memberCounterChannelNameStart: channelNameStart,
     logChannelName,
+    memberCountUpdateDuration,
 } = require("../config.json");
 
 module.exports = async (client) => {
@@ -13,6 +14,6 @@ module.exports = async (client) => {
             channel.setName(`Total Members: ${memberCount.toLocaleString()}`);
 
             console.log("Updating member count.");
-        }, 300000);
+        }, memberCountUpdateDuration);
     });
 };

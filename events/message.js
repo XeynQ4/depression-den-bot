@@ -1,4 +1,4 @@
-const { prefix, botChannel } = require("../config.json");
+const { prefix, botChannelName } = require("../config.json");
 const cooldownSetup = require("../functions/cooldown_setup");
 
 module.exports = {
@@ -44,7 +44,7 @@ module.exports = {
                     "you can't use this command in this channel!"
                 );
         } else {
-            if (botChannel !== message.channel.name)
+            if (botChannelName !== message.channel.name)
                 return message.reply(
                     "you can't use this command in this channel!"
                 );
