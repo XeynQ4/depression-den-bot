@@ -9,6 +9,7 @@ module.exports = {
     description: "This command verifies you.",
     guildOnly: true,
     usage: "",
+    aliases: ["v"],
     channels: [verifyChannelName],
     async execute(message, args) {
         message.delete();

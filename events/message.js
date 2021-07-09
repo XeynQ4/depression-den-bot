@@ -15,8 +15,12 @@ module.exports = {
                 (cmd) => cmd.aliases && cmd.aliases.includes(commandName)
             );
 
-        if (!command)
-            return message.channel.send("This command doesn't exist!");
+        if (!command) {
+            const reply = await message.reply("this command doesn't exist!");
+            message.delete();
+            setTimeout(() => reply.delete(), messageDuration);
+            return;
+        }
 
         if (command.guildOnly && message.channel.type === "dm") {
             return message.reply("This command is only for servers!");
