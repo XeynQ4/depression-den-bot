@@ -1,4 +1,4 @@
-const { prefix, botChannelName } = require("../config.json");
+const { prefix, botChannelName, messageDuration } = require("../config.json");
 const cooldownSetup = require("../functions/cooldown_setup");
 
 module.exports = {
@@ -39,15 +39,23 @@ module.exports = {
                 !command.channels.find(
                     (channel) => channel === message.channel.name
                 )
-            )
-                return message.reply(
+            ) {
+                const reply = await message.reply(
                     "you can't use this command in this channel!"
                 );
+                message.delete();
+                setTimeout(() => reply.delete(), messageDuration);
+                return;
+            }
         } else {
-            if (botChannelName !== message.channel.name)
-                return message.reply(
+            if (botChannelName !== message.channel.name) {
+                const reply = await message.reply(
                     "you can't use this command in this channel!"
                 );
+                message.delete();
+                setTimeout(() => reply.delete(), messageDuration);
+                return;
+            }
         }
 
         if (command.args && !args.length) {
