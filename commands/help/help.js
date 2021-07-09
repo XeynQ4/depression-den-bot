@@ -5,6 +5,8 @@ const {
     messageDuration,
 } = require("../../config.json");
 
+const helpBase = require("../../functions/help_base");
+
 module.exports = {
     name: "help",
     description: "List of all commands.",
@@ -27,22 +29,7 @@ module.exports = {
                 }, messageDuration);
             }
 
-            embed.setTitle("List of all commands");
-            commands.forEach((command) =>
-                embed.addField(
-                    `***${command.name}***`,
-                    `**Description:** ${command.description}\n**Aliases:** \`${
-                        command.aliases ? command.aliases.join(", ") : "-"
-                    }\`\n**Usage:** \`${
-                        command.usage
-                            ? `${prefix}${command.name} ${command.usage}`
-                            : `${prefix}${command.name}`
-                    }\`\n**Cooldown:** ${command.cooldown || 0} second(s)`
-                )
-            );
-            embed.setDescription(
-                `You can send \`${prefix}${this.name} ${this.usage}\` to get info on a specific command!`
-            );
+            embed = helpBase(embed, commands);
 
             return message.author
                 .send(embed)
@@ -85,7 +72,17 @@ module.exports = {
                     command.usage
                         ? `${prefix}${command.name} ${command.usage}`
                         : `${prefix}${command.name}`
-                }\`\n**Cooldown:** ${command.cooldown || 0} second(s)`
+                }\`\n**Cooldown:** ${
+                    command.cooldown || 0
+                } second(s)\n**Permissions:** \`${
+                    command.permissions
+                        ? command.permissions.join(", ")
+                        : "none"
+                }\`\n**Channels:** \`${
+                    command.channels
+                        ? command.channels.join(", ")
+                        : botChannelName
+                }\``
             )
             .setTitle(command.name);
 

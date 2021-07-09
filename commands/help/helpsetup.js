@@ -1,4 +1,5 @@
 const { botHelpChannelName, prefix } = require("../../config.json");
+const helpBase = require("../../functions/help_base");
 
 module.exports = {
     name: "helpsetup",
@@ -10,22 +11,7 @@ module.exports = {
         let embed = new Discord.MessageEmbed().setColor("#4287f5");
         const { commands } = client;
 
-        embed.setTitle("List of all commands");
-        commands.forEach((command) =>
-            embed.addField(
-                `***${command.name}***`,
-                `**Description:** ${command.description}\n**Aliases:** \`${
-                    command.aliases ? command.aliases.join(", ") : "-"
-                }\`\n**Usage:** \`${
-                    command.usage
-                        ? `${prefix}${command.name} ${command.usage}`
-                        : `${prefix}${command.name}`
-                }\`\n**Cooldown:** ${command.cooldown || 0} second(s)`
-            )
-        );
-        embed.setDescription(
-            `You can send \`${prefix}help <command: name (optional)>\` to get info on a specific command!`
-        );
+        embed = helpBase(embed, commands);
 
         const botHelpChannel = message.guild.channels.cache.find(
             (channel) => channel.name === botHelpChannelName
